@@ -1,0 +1,25 @@
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+
+vim.o.backup = false
+vim.o.clipboard = 'unnamedplus'
+vim.o.colorcolumn = '120'
+vim.o.expandtab = true
+vim.o.hlsearch = false
+vim.o.incsearch = true
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.scrolloff = 8
+vim.o.shiftwidth = 2
+vim.o.signcolumn = 'yes'
+vim.o.smartindent = true
+vim.o.softtabstop = 2
+vim.o.splitbelow = true
+vim.o.splitright = true
+vim.o.swapfile = false
+vim.o.tabstop = 2
+vim.o.timeout = true
+vim.o.timeoutlen = 300
+vim.o.title = true
+vim.o.undofile = true
+vim.o.wrap = false
