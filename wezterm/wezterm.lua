@@ -8,6 +8,7 @@ end)
 
 wezterm.on('user-var-changed', function(window, pane, name, value)
   local overrides = window:get_config_overrides() or {}
+  wezterm.log_info('var name ' .. name)
   if name == 'ZEN_MODE' then
     local incremental = value:find('+')
     local number_value = tonumber(value)
@@ -25,26 +26,23 @@ wezterm.on('user-var-changed', function(window, pane, name, value)
       overrides.font_size = number_value
       overrides.enable_tab_bar = false
     end
+    window:set_config_overrides(overrides)
   end
-  window:set_config_overrides(overrides)
 end)
 
 local config = wezterm.config_builder()
 
 config.color_scheme = 'tokyonight_night'
-
-config.default_prog = { 'pwsh' }
-
+config.default_prog = { 'pwsh', '-NoLogo' }
+config.default_cwd = wezterm.home_dir
 config.font = wezterm.font_with_fallback({
   { family = 'Fira Code' },
   { family = 'JetBrains Mono' },
   { family = 'Cascadia Code PL' },
 })
 config.font_size = 10
-
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
-
 config.window_padding = {
   left = 0,
   right = 0,
