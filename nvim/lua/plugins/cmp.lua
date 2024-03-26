@@ -27,7 +27,9 @@ return {
 
     cmp.setup({
       snippet = {
-        expand = function(args) vim.fn['vsnip#anonymous'](args.body) end,
+        expand = function(args)
+          vim.fn['vsnip#anonymous'](args.body)
+        end,
       },
       mapping = cmp.mapping.preset.insert({
         ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-2), { 'i', 'c' }),
@@ -60,10 +62,9 @@ return {
         format = lspkind.cmp_format({
           mode = 'symbol_text',
           menu = {
-            buffer = '[Buffer]',
-            nvim_lsp = '[LSP]',
             vsnip = '[VSnip]',
-            nvim_lua = '[Lua]',
+            nvim_lsp = '[LSP]',
+            buffer = '[Buffer]',
           },
         }),
       },
@@ -71,8 +72,8 @@ return {
         { name = 'nvim_lsp' },
         { name = 'nvim_lsp_signature_help' },
         { name = 'vsnip', keyword_lenght = 2 },
-        { name = 'buffer', keyword_lenght = 4 },
         { name = 'path', keyword_lenght = 4 },
+        { name = 'buffer', keyword_lenght = 4 },
       }),
     })
 
