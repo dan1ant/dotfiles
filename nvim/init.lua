@@ -1,10 +1,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-require('config.autocommands')
-require('config.keymaps')
-require('config.options')
-
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -22,9 +18,6 @@ require('lazy').setup('plugins', {
   install = {
     colorscheme = { 'tokyonight' },
   },
-  ui = {
-    border = 'rounded',
-  },
   checker = {
     enabled = true,
     notify = false,
@@ -34,3 +27,7 @@ require('lazy').setup('plugins', {
     notify = false,
   },
 })
+
+require('config.autocommands')
+require('config.keymaps')
+require('config.options')

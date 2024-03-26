@@ -48,4 +48,10 @@ return {
     },
   },
   { 'lukas-reineke/indent-blankline.nvim', main = 'ibl', opts = {} },
+  {
+    'j-hui/fidget.nvim',
+    opts = {
+      -- options
+    },
+  },
 }
