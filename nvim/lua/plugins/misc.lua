@@ -42,16 +42,13 @@ return {
   {
     'folke/zen-mode.nvim',
     opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
+      plugins = {
+        diagnostics = {
+          enabled = true,
+        },
+      },
     },
   },
   { 'lukas-reineke/indent-blankline.nvim', main = 'ibl', opts = {} },
-  {
-    'j-hui/fidget.nvim',
-    opts = {
-      -- options
-    },
-  },
+  { 'j-hui/fidget.nvim', opts = {} },
 }

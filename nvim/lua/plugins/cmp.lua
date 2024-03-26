@@ -36,7 +36,7 @@ return {
         ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(2), { 'i', 'c' }),
         ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
         ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<CR>'] = cmp.mapping.confirm({ behavior = cmp.SelectBehavior.Insert }),
         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
         ['<Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
@@ -71,9 +71,9 @@ return {
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'nvim_lsp_signature_help' },
-        { name = 'vsnip', keyword_lenght = 2 },
-        { name = 'path', keyword_lenght = 4 },
-        { name = 'buffer', keyword_lenght = 4 },
+        { name = 'vsnip' },
+        { name = 'path', keyword_lenght = 3 },
+        { name = 'buffer', keyword_lenght = 3 },
       }),
     })
 

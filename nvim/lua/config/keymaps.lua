@@ -16,13 +16,15 @@ map('n', 'n', 'nzzzv', { desc = 'Go To Next Occurrence' })
 map('v', 'J', ":m '>+1<cr>gv=gv", { desc = 'Move 1 or more lines Down' })
 map('v', 'K', ":m '<-2<cr>gv=gv", { desc = 'Move 1 or more lines Up' })
 
-map('n', '<leader>e', vim.cmd.Trouble, { desc = 'Open Diagnostics' })
+map('n', '<leader>e', vim.cmd.TroubleToggle, { desc = 'Open Diagnostics' })
 
 map('n', '<leader>tf', require('telescope.builtin').find_files, { desc = 'Telescope Find Files' })
 map('n', '<leader>ts', require('telescope.builtin').live_grep, { desc = 'Telescope Search' })
 map('n', '<leader>tS', require('telescope.builtin').grep_string, { desc = 'Telescope Search current Word' })
 map('n', '<leader>tb', require('telescope.builtin').buffers, { desc = 'Telescope Search Buffers' })
+map('n', '<leader>th', require('telescope.builtin').help_tags, { desc = 'Telescope Help Tags' })
 
-map('n', '<leader>T', vim.cmd.TodoTrouble, { desc = 'Open Todos' })
+map('n', '<leader>Tt', vim.cmd.TodoTrouble, { desc = 'Open Todos in Trouble' })
+map('n', '<leader>TT', vim.cmd.TodoTelescope, { desc = 'Open Todos in Telescope' })
 
 map('n', '<leader>z', vim.cmd.ZenMode, { desc = 'Toggle ZenMode' })
