@@ -32,12 +32,12 @@ return {
         end,
       },
       mapping = cmp.mapping.preset.insert({
-        ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-2), { 'i', 'c' }),
-        ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(2), { 'i', 'c' }),
+        ['<C-b>'] = cmp.mapping.scroll_docs(-2),
+        ['<C-f>'] = cmp.mapping.scroll_docs(2),
         ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
         ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
-        ['<CR>'] = cmp.mapping.confirm({ behavior = cmp.SelectBehavior.Insert }),
-        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+        ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ behavior = cmp.SelectBehavior.Replace }), { 'i', 'c' }),
+        ['<C-Space>'] = cmp.mapping.complete(),
         ['<Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
@@ -62,8 +62,9 @@ return {
         format = lspkind.cmp_format({
           mode = 'symbol_text',
           menu = {
-            vsnip = '[VSnip]',
             nvim_lsp = '[LSP]',
+            vsnip = '[Snippet]',
+            path = '[Path]',
             buffer = '[Buffer]',
           },
         }),
@@ -72,6 +73,7 @@ return {
         { name = 'nvim_lsp' },
         { name = 'nvim_lsp_signature_help' },
         { name = 'vsnip' },
+      }, {
         { name = 'path', keyword_lenght = 3 },
         { name = 'buffer', keyword_lenght = 3 },
       }),
