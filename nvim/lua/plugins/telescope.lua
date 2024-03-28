@@ -9,7 +9,15 @@ return {
     },
   },
   opts = {
-    theme = 'tokyonight',
+    defaults = {
+      prompt_prefix = ' ',
+      selection_caret = ' ',
+      layout_config = {
+        horizontal = {
+          prompt_position = 'top',
+        },
+      },
+    },
   },
   config = function(_, opts)
     require('telescope').setup(opts)
