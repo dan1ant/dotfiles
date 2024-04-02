@@ -3,7 +3,6 @@ return {
   event = { 'InsertEnter', 'CmdlineEnter' },
   dependencies = {
     'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-nvim-lsp-signature-help',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-cmdline',
@@ -26,18 +25,28 @@ return {
     local lspkind = require('lspkind')
 
     cmp.setup({
-      snippet = {
-        expand = function(args)
-          vim.fn['vsnip#anonymous'](args.body)
-        end,
+      completion = {
+        completeopt = 'menu,menuone,noselect',
+      },
+      --- @diagnostic disable: missing-fields
+      formatting = {
+        format = lspkind.cmp_format({
+          preset = 'codicons',
+          mode = 'symbol_text',
+          maxwidth = 25,
+          ellipsis_char = '...',
+          menu = {
+            nvim_lsp = '[LSP]',
+            vsnip = '[Snippet]',
+            path = '[Path]',
+            buffer = '[Buffer]',
+          },
+        }),
       },
       mapping = cmp.mapping.preset.insert({
         ['<C-b>'] = cmp.mapping.scroll_docs(-2),
         ['<C-f>'] = cmp.mapping.scroll_docs(2),
-        ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
-        ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
         ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ behavior = cmp.SelectBehavior.Replace }), { 'i', 'c' }),
-        ['<C-Space>'] = cmp.mapping.complete(),
         ['<Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
@@ -49,34 +58,33 @@ return {
             fallback()
           end
         end, { 'i', 's' }),
-        ['<S-Tab>'] = cmp.mapping(function()
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
           elseif vim.fn['vsnip#jumpable'](-1) == 1 then
             feedkey('<Plug>(vsnip-jump-prev)', '')
+          else
+            fallback()
           end
         end, { 'i', 's' }),
       }),
-      --- @diagnostic disable: missing-fields
-      formatting = {
-        format = lspkind.cmp_format({
-          mode = 'symbol_text',
-          menu = {
-            nvim_lsp = '[LSP]',
-            vsnip = '[Snippet]',
-            path = '[Path]',
-            buffer = '[Buffer]',
-          },
-        }),
+      snippet = {
+        expand = function(args)
+          vim.fn['vsnip#anonymous'](args.body)
+        end,
       },
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
-        { name = 'nvim_lsp_signature_help' },
         { name = 'vsnip' },
       }, {
         { name = 'path', keyword_lenght = 3 },
         { name = 'buffer', keyword_lenght = 3 },
       }),
+      view = {
+        entries = {
+          follow_cursor = true,
+        },
+      },
     })
 
     cmp.setup.cmdline({ '/', '?' }, {
