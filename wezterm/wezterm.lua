@@ -6,20 +6,47 @@ wezterm.on('gui-startup', function(cmd)
   window:gui_window():maximize()
 end)
 
-local config = wezterm.config_builder()
+local config = wezterm.config_builder() or {}
 
-config.color_scheme = 'tokyonight_night'
+config.color_scheme = 'Kanagawa (Gogh)'
 config.default_prog = { 'pwsh', '-NoLogo' }
 config.default_cwd = wezterm.home_dir
-config.font = wezterm.font_with_fallback({
-  { family = 'Fira Code' },
-  { family = 'JetBrains Mono' },
-  { family = 'Cascadia Code PL' },
-})
+config.font = wezterm.font_with_fallback({ family = 'JetBrains Mono' })
+config.font_rules = {
+  {
+    intensity = 'Normal',
+    italic = false,
+    font = wezterm.font_with_fallback({ family = 'JetBrains Mono', weight = 'Regular' }),
+  },
+  {
+    intensity = 'Normal',
+    italic = true,
+    font = wezterm.font_with_fallback({ family = 'JetBrains Mono', weight = 'Regular', italic = 'Italic' }),
+  },
+  {
+    intensity = 'Bold',
+    italic = false,
+    font = wezterm.font_with_fallback({ family = 'JetBrains Mono', weight = 'Bold' }),
+  },
+  {
+    intensity = 'Bold',
+    italic = true,
+    font = wezterm.font_with_fallback({ family = 'JetBrains Mono', weight = 'Bold', italic = 'Italic' }),
+  },
+  {
+    intensity = 'Half',
+    italic = false,
+    font = wezterm.font_with_fallback({ family = 'JetBrains Mono', weight = 'Light' }),
+  },
+  {
+    intensity = 'Half',
+    italic = true,
+    font = wezterm.font_with_fallback({ family = 'JetBrains Mono', weight = 'Light', italic = 'Italic' }),
+  },
+}
 config.font_size = 10
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
-config.underline_position = -4
 config.window_padding = {
   left = 0,
   right = 0,
