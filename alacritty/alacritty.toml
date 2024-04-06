@@ -1,0 +1,10 @@
+[shell]
+program = 'pwsh'
+args = [ '-NoLogo' ]
+
+[window]
+dynamic_title = false
+
+[font]
+normal = { family = 'JetBrainsMono NF', style = 'Regular' }
+size = 10
