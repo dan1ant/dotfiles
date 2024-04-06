@@ -20,6 +20,5 @@ vim.o.swapfile = false
 vim.o.tabstop = 2
 vim.o.timeout = true
 vim.o.timeoutlen = 300
-vim.o.title = true
 vim.o.undofile = true
 vim.o.wrap = false
