@@ -7,6 +7,7 @@ return {
       timeout_ms = 500,
     },
     formatters_by_ft = {
+      go = { 'goimports', 'gofumpt' },
       lua = { 'stylua' },
     },
   },

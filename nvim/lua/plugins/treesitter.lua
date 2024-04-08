@@ -5,7 +5,20 @@ return {
 
     --- @diagnostic disable: missing-fields
     configs.setup({
-      ensure_installed = { 'c', 'lua', 'odin', 'toml', 'vim', 'vimdoc' },
+      ensure_installed = {
+        'c',
+        'cpp',
+        'go',
+        'gomod',
+        'gowork',
+        'gosum',
+        'lua',
+        'odin',
+        'toml',
+        'json',
+        'vim',
+        'vimdoc',
+      },
       sync_install = true,
       auto_install = false,
       highlight = { enable = true },
