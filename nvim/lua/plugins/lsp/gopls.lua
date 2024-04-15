@@ -13,9 +13,6 @@ return {
       },
       analyses = {
         fieldalignment = true,
-        nilness = true,
-        unusedparams = true,
-        unusedwrite = true,
         useany = true,
       },
       usePlaceholders = true,
