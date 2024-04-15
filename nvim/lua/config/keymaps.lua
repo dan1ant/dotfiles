@@ -27,5 +27,3 @@ map('n', '<leader>fb', require('telescope.builtin').buffers, { desc = 'Telescope
 map('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = 'Telescope Help Tags' })
 
 map('n', '<leader>t', vim.cmd.TodoTrouble, { desc = 'Open Todos in Trouble' })
-
-map('n', '<leader>z', vim.cmd.ZenMode, { desc = 'Toggle ZenMode' })
