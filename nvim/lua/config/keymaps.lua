@@ -2,11 +2,6 @@ local map = vim.keymap.set
 
 map('n', ';', ':', { desc = 'Command Mode' })
 
-map('n', '<C-h>', '<C-w>h', { desc = 'Move Focus to Left Window' })
-map('n', '<C-j>', '<C-w>j', { desc = 'Move Focus to Down Window' })
-map('n', '<C-k>', '<C-w>k', { desc = 'Move Focus to Top Window' })
-map('n', '<C-l>', '<C-w>l', { desc = 'Move Focus to Right Window' })
-
 map('n', 'J', 'mzJ`z', { desc = 'Merge with line below' })
 map('n', '<C-d>', '<C-d>zz', { desc = 'Scroll Down' })
 map('n', '<C-u>', '<C-u>zz', { desc = 'Scroll Up' })

@@ -3,11 +3,10 @@ return {
   event = { 'InsertEnter', 'CmdlineEnter' },
   dependencies = {
     'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-nvim-lsp-signature-help',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-cmdline',
-    'hrsh7th/cmp-vsnip',
-    'hrsh7th/vim-vsnip',
     'onsails/lspkind.nvim',
   },
   config = function()
@@ -15,10 +14,6 @@ return {
       unpack = unpack or table.unpack
       local line, col = unpack(vim.api.nvim_win_get_cursor(0))
       return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
-    end
-
-    local feedkey = function(key, mode)
-      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
     end
 
     local cmp = require('cmp')
@@ -35,49 +30,43 @@ return {
           mode = 'symbol_text',
           maxwidth = 25,
           ellipsis_char = '...',
-          menu = {
-            nvim_lsp = '[LSP]',
-            vsnip = '[Snippet]',
-            path = '[Path]',
-            buffer = '[Buffer]',
-          },
         }),
       },
       mapping = cmp.mapping.preset.insert({
         ['<C-b>'] = cmp.mapping.scroll_docs(-2),
         ['<C-f>'] = cmp.mapping.scroll_docs(2),
-        ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ behavior = cmp.SelectBehavior.Replace }), { 'i', 'c' }),
+        ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ behavior = cmp.SelectBehavior.Replace }), { 'i', 's', 'c' }),
         ['<Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
-          elseif vim.fn['vsnip#available'](1) == 1 then
-            feedkey('<Plug>(vsnip-expand-or-jump)', '')
           elseif has_words_before() then
             cmp.complete()
+          elseif vim.snippet.active() and vim.snippet.jumpable(1) then
+            vim.snippet.jump(1)
           else
             fallback()
           end
-        end, { 'i', 's' }),
+        end, { 'i', 's', 'c' }),
         ['<S-Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
-          elseif vim.fn['vsnip#jumpable'](-1) == 1 then
-            feedkey('<Plug>(vsnip-jump-prev)', '')
+          elseif vim.snippet.active() and vim.snippet.jumpable(-1) then
+            vim.snippet.jump(-1)
           else
             fallback()
           end
-        end, { 'i', 's' }),
+        end, { 'i', 's', 'c' }),
       }),
       snippet = {
         expand = function(args)
-          vim.fn['vsnip#anonymous'](args.body)
+          vim.snippet.expand(args.body)
         end,
       },
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
-        { name = 'vsnip' },
+        { name = 'nvim_lsp_signature_help' },
+        { name = 'path' },
       }, {
-        { name = 'path', keyword_lenght = 3 },
         { name = 'buffer', keyword_lenght = 3 },
       }),
       view = {

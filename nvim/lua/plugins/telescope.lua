@@ -14,8 +14,8 @@ return {
 
     local opts = {
       defaults = {
-        prompt_prefix = '󰍉 ',
-        selection_caret = ' ',
+        prompt_prefix = '🔍 ',
+        selection_caret = ' ',
         mappings = {
           i = {
             ['<C-q>'] = trouble_actions.smart_open_with_trouble,

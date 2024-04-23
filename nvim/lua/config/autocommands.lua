@@ -61,10 +61,27 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = '(LSP) Rename', buffer = event.buf })
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = '(LSP) Code Actions', buffer = event.buf })
 
-    if client ~= nil and client.server_capabilities.inlayHintProvider then
+    if client and client.server_capabilities.inlayHintProvider then
       vim.keymap.set('n', '<leader>ih', function()
-        vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled(bufnr))
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(bufnr))
       end, { desc = '(LSP) Toggle Inlay Hints', buffer = event.buf })
     end
+  end,
+})
+
+--Document Highlight
+local docHighlightGroup = vim.api.nvim_create_augroup('UserLspDocumentHighlight', {})
+
+vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+  group = docHighlightGroup,
+  callback = function()
+    vim.lsp.buf.document_highlight()
+  end,
+})
+
+vim.api.nvim_create_autocmd('CursorMoved', {
+  group = docHighlightGroup,
+  callback = function()
+    vim.lsp.buf.clear_references()
   end,
 })
