@@ -1,7 +1,3 @@
-[shell]
-program = 'pwsh'
-args = [ '-NoLogo' ]
-
 [window]
 dynamic_title = false
 
