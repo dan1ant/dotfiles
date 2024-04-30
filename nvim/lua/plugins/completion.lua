@@ -21,7 +21,11 @@ return {
 
     cmp.setup({
       completion = {
+        autocomplete = false,
         completeopt = 'menu,menuone,noselect',
+      },
+      experimental = {
+        ghost_text = true,
       },
       --- @diagnostic disable: missing-fields
       formatting = {
@@ -39,23 +43,23 @@ return {
         ['<Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
+          elseif vim.snippet.active({ direction = 1 }) then
+            vim.snippet.jump(1)
           elseif has_words_before() then
             cmp.complete()
-          elseif vim.snippet.active() and vim.snippet.jumpable(1) then
-            vim.snippet.jump(1)
           else
             fallback()
           end
-        end, { 'i', 's', 'c' }),
+        end, { 'i', 's' }),
         ['<S-Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
-          elseif vim.snippet.active() and vim.snippet.jumpable(-1) then
+          elseif vim.snippet.active({ direction = -1 }) then
             vim.snippet.jump(-1)
           else
             fallback()
           end
-        end, { 'i', 's', 'c' }),
+        end, { 'i', 's' }),
       }),
       snippet = {
         expand = function(args)
@@ -63,6 +67,7 @@ return {
         end,
       },
       sources = cmp.config.sources({
+        { name = 'snippets' },
         { name = 'nvim_lsp' },
         { name = 'nvim_lsp_signature_help' },
         { name = 'path' },

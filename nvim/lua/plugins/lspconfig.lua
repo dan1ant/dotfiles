@@ -1,11 +1,15 @@
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
-    'folke/neodev.nvim',
+    { 'folke/neodev.nvim', opts = {} },
     'hrsh7th/cmp-nvim-lsp',
   },
   config = function(_, _)
-    require('neodev').setup()
+    local signs = { Error = '󰅚 ', Warn = '󰀪 ', Hint = '󰌶 ', Info = ' ' }
+    for type, icon in pairs(signs) do
+      local hl = 'DiagnosticSign' .. type
+      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+    end
 
     local lspconfig = require('lspconfig')
     local servers = { 'gopls', 'lua_ls', 'ols' }
