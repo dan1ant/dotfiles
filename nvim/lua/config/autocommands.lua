@@ -19,6 +19,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       require('telescope.builtin').lsp_definitions,
       { desc = '(LSP) Definitions', buffer = event.buf }
     )
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = '(LSP) Declaration', buffer = event.buf })
     vim.keymap.set(
       'n',
       'gr',
@@ -50,7 +51,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
       { desc = '(LSP) Workspace Symbols', buffer = event.buf }
     )
 
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = '(LSP) Declaration', buffer = event.buf })
     vim.keymap.set(
       { 'i', 'n' },
       '<M-k>',
@@ -66,6 +66,22 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(bufnr))
       end, { desc = '(LSP) Toggle Inlay Hints', buffer = event.buf })
     end
+
+    if client and client.name == 'gopls' then
+      if not client.server_capabilities.semanticTokensProvider then
+        local semantic = client.config.capabilities.textDocument.semanticTokens
+        if semantic ~= nil then
+          client.server_capabilities.semanticTokensProvider = {
+            full = true,
+            legend = {
+              tokenTypes = semantic.tokenTypes,
+              tokenModifiers = semantic.tokenModifiers,
+            },
+            range = true,
+          }
+        end
+      end
+    end
   end,
 })
 
@@ -74,14 +90,22 @@ local docHighlightGroup = vim.api.nvim_create_augroup('UserLspDocumentHighlight'
 
 vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
   group = docHighlightGroup,
-  callback = function()
-    vim.lsp.buf.document_highlight()
+  callback = function(event)
+    local clients = vim.lsp.get_clients({ bufnr = event.buf })
+
+    if #clients ~= 0 and clients[1].server_capabilities.documentHighlightProvider then
+      vim.lsp.buf.document_highlight()
+    end
   end,
 })
 
 vim.api.nvim_create_autocmd('CursorMoved', {
   group = docHighlightGroup,
-  callback = function()
-    vim.lsp.buf.clear_references()
+  callback = function(event)
+    local clients = vim.lsp.get_clients({ bufnr = event.buf })
+
+    if #clients ~= 0 and clients[1].server_capabilities.documentHighlightProvider then
+      vim.lsp.buf.clear_references()
+    end
   end,
 })
