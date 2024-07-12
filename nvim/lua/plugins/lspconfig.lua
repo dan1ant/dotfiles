@@ -1,7 +1,6 @@
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
-    { 'folke/neodev.nvim', opts = {} },
     'hrsh7th/cmp-nvim-lsp',
   },
   config = function(_, _)
