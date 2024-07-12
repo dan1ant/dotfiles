@@ -10,7 +10,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(event)
-    local bufnr = event.buf
     local client = vim.lsp.get_client_by_id(event.data.client_id)
 
     vim.keymap.set(
@@ -51,19 +50,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
       { desc = '(LSP) Workspace Symbols', buffer = event.buf }
     )
 
-    vim.keymap.set(
-      { 'i', 'n' },
-      '<M-k>',
-      vim.lsp.buf.signature_help,
-      { desc = '(LSP) Signature Help', buffer = event.buf }
-    )
+    vim.keymap.set('i', '<C-S>', vim.lsp.buf.signature_help, { desc = '(LSP) Signature Help', buffer = event.buf })
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = '(LSP) Hover', buffer = event.buf })
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = '(LSP) Rename', buffer = event.buf })
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = '(LSP) Code Actions', buffer = event.buf })
 
-    if client and client.server_capabilities.inlayHintProvider then
+    if client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
       vim.keymap.set('n', '<leader>ih', function()
-        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(bufnr))
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }), { bufnr = event.buf })
       end, { desc = '(LSP) Toggle Inlay Hints', buffer = event.buf })
     end
 
@@ -92,9 +86,11 @@ vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
   group = docHighlightGroup,
   callback = function(event)
     local clients = vim.lsp.get_clients({ bufnr = event.buf })
-
-    if #clients ~= 0 and clients[1].server_capabilities.documentHighlightProvider then
-      vim.lsp.buf.document_highlight()
+    for _, client in ipairs(clients) do
+      if client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+        vim.lsp.buf.document_highlight()
+        break
+      end
     end
   end,
 })
@@ -103,9 +99,11 @@ vim.api.nvim_create_autocmd('CursorMoved', {
   group = docHighlightGroup,
   callback = function(event)
     local clients = vim.lsp.get_clients({ bufnr = event.buf })
-
-    if #clients ~= 0 and clients[1].server_capabilities.documentHighlightProvider then
-      vim.lsp.buf.clear_references()
+    for _, client in ipairs(clients) do
+      if client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+        vim.lsp.buf.clear_references()
+        break
+      end
     end
   end,
 })
