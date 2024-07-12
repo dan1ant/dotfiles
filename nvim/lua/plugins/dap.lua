@@ -1,22 +1,45 @@
 return {
   'mfussenegger/nvim-dap',
   dependencies = {
+    {
+      'leoluz/nvim-dap-go',
+      opts = {
+        delve = {
+          detached = vim.fn.has('win32') ~= 1,
+        },
+      },
+    },
     'rcarriga/nvim-dap-ui',
     'nvim-neotest/nvim-nio',
-    'leoluz/nvim-dap-go',
   },
   config = function()
     local dap = require('dap')
     local dapui = require('dapui')
-    local dapgo = require('dap-go')
 
-    dapui.setup()
-    dapgo.setup({
-      delve = {
+    dap.adapters.codelldb = {
+      type = 'server',
+      port = '${port}',
+      executable = {
+        command = 'codelldb',
+        args = { '--port', '${port}' },
         detached = vim.fn.has('win32') ~= 1,
       },
-    })
+    }
 
+    dap.configurations.odin = {
+      {
+        name = 'Launch & Debug',
+        type = 'codelldb',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = vim.fn.getcwd(),
+        stopOnEntry = false,
+      },
+    }
+
+    dapui.setup()
     dap.listeners.before.attach.dapui_config = function()
       dapui.open()
     end
