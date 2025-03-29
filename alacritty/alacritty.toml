@@ -1,0 +1,14 @@
+[window]
+dynamic_title = false
+
+[font]
+normal = { family = 'JetBrainsMono NF', style = 'Regular' }
+size = 10.5
+
+[keyboard]
+bindings = [
+  { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" },
+  { key = "Enter", mods = "Control|Alt", action = "ToggleMaximized" },
+  #WINDOWS: fix for C-Space not properly sent to Neovim https://github.com/neovim/neovim/issues/8435#issuecomment-2119332145
+  { key = "Space", mods = "Control", chars = "\u001b[32;5u" }
+]
