@@ -109,6 +109,8 @@ return {
       local lspconfig = require('lspconfig')
       local servers = opts.servers
 
+      vim.diagnostic.config(opts.diagnostic)
+
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       local blink_capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
 
