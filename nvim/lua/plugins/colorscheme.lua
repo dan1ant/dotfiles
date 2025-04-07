@@ -21,13 +21,6 @@ return {
         PmenuSbar = { bg = theme.ui.bg_m1 },
         PmenuThumb = { bg = theme.ui.bg_p2 },
 
-        NoiceCmdlineIcon = { fg = theme.diag.info, bg = theme.ui.bg },
-        NoiceCmdlineIconSearch = { fg = theme.diag.warning, bg = theme.ui.bg },
-        NoiceCmdlinePopupBorder = { fg = theme.diag.info, bg = theme.ui.bg },
-        NoiceCmdlinePopupBorderSearch = { fg = theme.diag.warning, bg = theme.ui.bg },
-        NoiceCmdlinePopupTitle = { fg = theme.diag.info, bg = theme.ui.bg },
-        NoiceCmdlinePopupTitleSearch = { fg = theme.diag.warning, bg = theme.ui.bg },
-
         DiagnosticVirtualTextHint = makeDiagnosticColor(theme.diag.hint),
         DiagnosticVirtualTextInfo = makeDiagnosticColor(theme.diag.info),
         DiagnosticVirtualTextWarn = makeDiagnosticColor(theme.diag.warning),
