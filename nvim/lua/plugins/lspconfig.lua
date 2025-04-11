@@ -1,5 +1,33 @@
 return {
-  { 'williamboman/mason.nvim', opts = {} },
+  {
+    'williamboman/mason.nvim',
+    opts = {
+      ui = {
+        icons = {
+          package_installed = '✓',
+          package_pending = '➜',
+          package_uninstalled = '✗',
+        },
+      },
+    },
+  },
+  {
+    'williamboman/mason-lspconfig.nvim',
+    opts = {
+      ensure_installed = {
+        'lua_ls',
+      },
+    },
+  },
+  {
+    'WhoIsSethDaniel/mason-tool-installer.nvim',
+    opts = {
+      ensure_installed = {
+        'codelldb',
+        'stylua',
+      },
+    },
+  },
   {
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -81,7 +109,6 @@ return {
                 rangeVariableTypes = true,
               },
               analyses = {
-                fieldalignment = true,
                 nilness = true,
                 unusedparams = true,
                 unusedwrite = true,
@@ -106,10 +133,10 @@ return {
       },
     },
     config = function(_, opts)
+      vim.diagnostic.config(opts.diagnostic)
+
       local lspconfig = require('lspconfig')
       local servers = opts.servers
-
-      vim.diagnostic.config(opts.diagnostic)
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       local blink_capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
