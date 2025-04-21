@@ -4,5 +4,10 @@ return {
   dependencies = {
     'nvim-tree/nvim-web-devicons',
   },
-  opts = {},
+  opts = {
+    spec = {
+      { '<leader>f', group = '+fzf-Lua' },
+      { '<leader>t', group = '+trouble' },
+    },
+  },
 }
