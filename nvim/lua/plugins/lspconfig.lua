@@ -16,6 +16,7 @@ return {
     opts = {
       ensure_installed = {
         'lua_ls',
+        'gopls',
       },
     },
   },
@@ -23,8 +24,13 @@ return {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     opts = {
       ensure_installed = {
-        'codelldb',
+        --formatters
         'stylua',
+        'gofumpt',
+        'goimports',
+        --debuggers
+        'codelldb',
+        'delve',
       },
     },
   },
@@ -135,15 +141,10 @@ return {
     config = function(_, opts)
       vim.diagnostic.config(opts.diagnostic)
 
-      local lspconfig = require('lspconfig')
       local servers = opts.servers
-
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      local blink_capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
-
       for server_name, server_opts in pairs(servers) do
-        server_opts.capabilities = blink_capabilities
-        lspconfig[server_name].setup(server_opts)
+        vim.lsp.config(server_name, server_opts)
+        vim.lsp.enable(server_name)
       end
     end,
   },

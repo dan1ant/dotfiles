@@ -56,7 +56,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 
     if client:supports_method(vim.lsp.protocol.Methods.textDocument_codeAction) then
-      vim.keymap.set('n', '<leader>ca', fzf.lsp_code_actions, { desc = '(LSP) Code Actions', buffer = bufnr })
+      vim.keymap.set('n', 'gca', fzf.lsp_code_actions, { desc = '(LSP) Code Actions', buffer = bufnr })
     end
 
     if client and client.name == 'gopls' then
