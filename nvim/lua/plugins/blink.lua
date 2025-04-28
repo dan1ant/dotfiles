@@ -1,12 +1,17 @@
 return {
   'saghen/blink.cmp',
   version = '1.*',
+  dependencies = { 'rafamadriz/friendly-snippets' },
   opts = {
     keymap = { preset = 'enter' },
     completion = {
-      list = {
-        selection = {
-          preselect = false,
+      menu = {
+        draw = {
+          columns = {
+            { 'kind_icon' },
+            { 'label', 'label_description' },
+            { 'source_name' },
+          },
         },
       },
       documentation = {
