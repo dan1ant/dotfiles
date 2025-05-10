@@ -1,3 +1,8 @@
+[general]
+import = [
+    "~/.local/share/nvim-data/lazy/kanagawa.nvim/extras/alacritty/kanagawa_dragon.toml"
+]
+
 [window]
 dynamic_title = false
 
