@@ -1,3 +1,7 @@
+local is_unix = function()
+  return vim.fn.has('win32') ~= 1
+end
+
 return {
   'mfussenegger/nvim-dap',
   dependencies = {
@@ -5,7 +9,8 @@ return {
       'leoluz/nvim-dap-go',
       opts = {
         delve = {
-          detached = vim.fn.has('win32') ~= 1,
+          path = (is_unix() and 'dlv' or 'dlv.cmd'),
+          detached = is_unix(),
         },
       },
     },
@@ -20,9 +25,9 @@ return {
       type = 'server',
       port = '${port}',
       executable = {
-        command = 'codelldb',
+        command = (is_unix() and 'codelldb' or 'codelldb.cmd'),
         args = { '--port', '${port}' },
-        detached = vim.fn.has('win32') ~= 1,
+        detached = is_unix(),
       },
     }
 
