@@ -5,12 +5,16 @@ return {
   opts = {
     keymap = { preset = 'enter' },
     completion = {
+      list = {
+        selecton = {
+          preselect = false,
+        },
+      },
       menu = {
         draw = {
           columns = {
-            { 'kind_icon' },
             { 'label', 'label_description' },
-            { 'source_name' },
+            { 'kind_icon', 'source_name', gap = 1 },
           },
         },
       },
@@ -22,7 +26,7 @@ return {
       },
     },
     sources = {
-      default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
+      default = { 'lazydev', 'lsp', 'snippets', 'buffer', 'path' },
       providers = {
         lazydev = {
           name = 'LazyDev',
