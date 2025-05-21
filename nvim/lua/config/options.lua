@@ -8,6 +8,12 @@ vim.opt.clipboard = 'unnamedplus'
 vim.opt.colorcolumn = '120'
 vim.opt.expandtab = true
 vim.opt.hlsearch = false
+vim.opt.list = true
+vim.opt.listchars = {
+  space = '·',
+  tab = '>-',
+  eol = '¬',
+}
 vim.opt.incsearch = true
 vim.opt.number = true
 vim.opt.relativenumber = true
