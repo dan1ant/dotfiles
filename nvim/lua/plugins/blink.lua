@@ -13,13 +13,18 @@ return {
       menu = {
         draw = {
           columns = {
-            { 'label', 'label_description' },
+            { 'label', 'label_description', gap = 1 },
             { 'kind_icon', 'source_name', gap = 1 },
           },
+          components = {
+            -- temp fix: https://github.com/Saghen/blink.cmp/issues/1317#issuecomment-2762258454
+            label_description = {
+              text = function(ctx)
+                return ctx.label_description ~= '' and ctx.label_description or ctx.item.detail
+              end,
+            },
+          },
         },
-      },
-      documentation = {
-        auto_show = true,
       },
       ghost_text = {
         enabled = true,

@@ -20,6 +20,8 @@ return {
         PmenuSel = { fg = 'NONE', bg = theme.ui.bg_p2 },
         PmenuSbar = { bg = theme.ui.bg_m1 },
         PmenuThumb = { bg = theme.ui.bg_p2 },
+
+        BlinkCmpLabelDescription = { link = 'BlinkCmpLabelDetails' },
         BlinkCmpSource = { link = 'BlinkCmpLabel' },
 
         DiagnosticVirtualTextHint = makeDiagnosticColor(theme.diag.hint),
