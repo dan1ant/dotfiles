@@ -6,7 +6,7 @@ return {
     keymap = { preset = 'enter' },
     completion = {
       list = {
-        selecton = {
+        selection = {
           preselect = false,
         },
       },
