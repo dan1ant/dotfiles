@@ -7,6 +7,7 @@ return {
   opts = {
     spec = {
       { '<leader>f', group = '+fzf-Lua' },
+      { '<leader>p', group = '+nvim-tree' },
       { '<leader>t', group = '+trouble' },
     },
   },
