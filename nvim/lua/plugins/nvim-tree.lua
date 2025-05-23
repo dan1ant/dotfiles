@@ -5,18 +5,16 @@ return {
   dependencies = {
     'nvim-tree/nvim-web-devicons',
   },
-  config = function()
-    require('nvim-tree').setup({
-      view = {
-        side = 'right',
-        width = 60,
-      },
-      git = {
-        ignore = false,
-      },
-    })
-  end,
+  opts = {
+    view = {
+      width = 40,
+    },
+    git = {
+      ignore = false,
+    },
+  },
   keys = {
-    { '<leader>pf', '<cmd>NvimTreeOpen<cr>', desc = 'Open NvimTree' },
+    { '<leader>po', '<cmd>NvimTreeOpen<cr>', desc = 'Open NvimTree' },
+    { '<leader>pc', '<cmd>NvimTreeClose<cr>', desc = 'Close NvimTree' },
   },
 }
